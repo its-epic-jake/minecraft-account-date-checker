@@ -1,31 +1,41 @@
 using System;
 using System.Net;
+using Newtonsoft.Json.Linq;
 
-class MainClass {
-  public static void Main (string[] args) {
-    WebClient client = new WebClient();
-
-    Console.WriteLine("Minecraft name checker | Coded by its jake#0001\n");
-    Console.WriteLine("Minecraft name you want to check: ");
-
-    string name = Console.ReadLine();
-
-    try
+namespace Minecraft_name_checker
+{
+    class Program
     {
-      string ApiResult = client.DownloadString("https://api.ashcon.app/mojang/v2/user/" + name);
+        static void Main(string[] args)
+        {
+            WebClient client = new WebClient();
 
-      int start = ApiResult.IndexOf("\"created_at\": \"") + "\"created_at\": \"".Length;
-      int end = ApiResult.LastIndexOf("\"");
+            Console.WriteLine("Minecraft name checker | Coded by its jake#0001\n");
+            Console.WriteLine("Minecraft name you want to check: ");
+            string name = Console.ReadLine();
+            try
+            {
+                string ApiResult = client.DownloadString("https://api.ashcon.app/mojang/v2/user/" + name);
 
-      string result = ApiResult.Substring(start, end - start);
+                var userObj = JObject.Parse(ApiResult);
+                var result = Convert.ToString(userObj["created_at"]);
 
-      Console.WriteLine("\nThe date this account was made on was: " + result);
-      Console.ReadKey();
+                if(result == null)
+                {
+                    Console.WriteLine("\nError");
+                }
+                else
+                {
+                    Console.WriteLine("\nThe date this account was made on was: " + result);
+                    Console.ReadKey();
+                }
+            }
+            catch
+            {
+                Console.WriteLine("\nThis account doesnt exist, or api error.");
+                Console.ReadKey();
+            }
+
+        }
     }
-    catch
-    {
-      Console.WriteLine("\nThis account doesnt exist, or api error.");
-      Console.ReadKey();
-    }
-  }
 }

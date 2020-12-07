@@ -19,16 +19,8 @@ namespace Minecraft_name_checker
 
                 var userObj = JObject.Parse(ApiResult);
                 var result = Convert.ToString(userObj["created_at"]);
-
-                if(result == null)
-                {
-                    Console.WriteLine("\nError");
-                }
-                else
-                {
-                    Console.WriteLine("\nThe date this account was made on was: " + result);
-                    Console.ReadKey();
-                }
+                Console.WriteLine("\nThe date this account was made on was: " + result);
+                Console.ReadKey();
             }
             catch
             {

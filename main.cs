@@ -10,7 +10,7 @@ namespace Minecraft_name_checker
         {
             WebClient client = new WebClient();
 
-            Console.WriteLine("Minecraft name checker | Coded by its jake#0001\n");
+            Console.WriteLine("Minecraft name checker | Coded by https://github.com/its-epic-jake\n");
             Console.WriteLine("Minecraft name you want to check: ");
             string name = Console.ReadLine();
             try
